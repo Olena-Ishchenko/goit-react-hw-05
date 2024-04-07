@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { requestTrendingMovies } from '../services/api';
 import MovieList from '../components/MovieList/MovieList';
+import { useLocation } from 'react-router-dom';
 
 export default function HomePage() {
+  const location = useLocation();
   const [trendMovies, setTrendMovies] = useState([]);
 
   useEffect(() => {
@@ -21,7 +23,7 @@ export default function HomePage() {
   return (
     <main>
       <h1>Trending today</h1>
-      <MovieList movies={trendMovies} />
+      <MovieList movies={trendMovies} from={location} defLocation="/" />
     </main>
   );
 }

@@ -7,6 +7,10 @@ import GoBack from '../components/GoBack/GoBack';
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
+  const location = useLocation();
+  const backLink = useRef(
+    location.state?.from ?? location.state?.defLocation ?? '/'
+  );
 
   const [details, setDetails] = useState(null);
 
@@ -23,14 +27,11 @@ export default function MovieDetailsPage() {
     fetchDetailsMovie();
   }, [movieId]);
 
-  const location = useLocation();
-  const backLink = useRef(location.state ?? '/');
-
   return (
     <>
       {details && (
         <div>
-          <Link to={backLink.current}>⬅ Go Back</Link>
+          <GoBack to={backLink.current}>⬅ Go back</GoBack>
           <div className={css.container}>
             <img
               src={`https://image.tmdb.org/t/p/w500${details.poster_path}`}
