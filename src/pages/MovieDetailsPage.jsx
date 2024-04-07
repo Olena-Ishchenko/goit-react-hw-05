@@ -8,10 +8,7 @@ import GoBack from '../components/GoBack/GoBack';
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const location = useLocation();
-  const backLink = useRef(
-    location.state?.from ?? location.state?.defLocation ?? '/'
-  );
-
+  const backLink = useRef(location.state ?? '/');
   const [details, setDetails] = useState(null);
 
   useEffect(() => {

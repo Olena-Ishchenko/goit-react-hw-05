@@ -5,30 +5,28 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 export default function MoviesPage() {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [value, setValue] = useState('');
   const paramQuery = searchParams.get('value');
 
   const handleSubmit = e => {
     e.preventDefault();
     const querySearch = e.target.elements.search.value.trim();
-    setValue(querySearch);
     setSearchParams({ value: querySearch });
   };
 
   const [movies, setMovies] = useState([]);
   useEffect(() => {
-    if (!value && !paramQuery) return;
+    if (!paramQuery) return;
 
     async function fetchMovie() {
       try {
-        const data = await requestMovie(value || paramQuery);
+        const data = await requestMovie(paramQuery);
         if (data.results.length > 0) setMovies(data.results);
       } catch (error) {
         console.log(error);
       }
     }
     fetchMovie();
-  }, [value, paramQuery]);
+  }, [paramQuery]);
 
   return (
     <div>
